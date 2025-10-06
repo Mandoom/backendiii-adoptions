@@ -2,6 +2,10 @@
 
 This project is an Express + MongoDB backend for managing users, pets, and the adoption workflow. The app exposes REST APIs that let you register users, list pets (optionally uploading images), and pair adopters with available pets.
 
+## Technical reference
+
+If you need a concise, architecture-first description to share with other tooling (including LLMs), read [`docs/TECHNICAL_OVERVIEW.md`](docs/TECHNICAL_OVERVIEW.md). It enumerates the directory layout, data flow, and every endpoint with its controller/service mapping.
+
 ## Prerequisites
 
 Before you start, make sure the following tools are available on your machine:
