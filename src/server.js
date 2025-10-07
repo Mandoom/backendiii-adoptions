@@ -4,29 +4,23 @@ import mongoose from 'mongoose';
 
 import app from './app.js';
 
+import { logger } from './config/logger.js';
+
+
 const PORT = process.env.PORT || 8080;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/adoptme';
 
 async function start() {
   try {
     await mongoose.connect(MONGODB_URI);
-    console.log('[DB] Connected');
+    logger.info('[DB] Connected');
 
     const server = app.listen(PORT, () => {
-      console.log(`[HTTP] Listening on http://localhost:${PORT}`);
+      logger.info(`[HTTP] Listening on http://localhost:${PORT}`);
     });
-
-    // Apagado elegante
-    const shutdown = async (signal) => {
-      console.log(`[SYS] ${signal} received, shutting down...`);
-      await mongoose.connection.close();
-      server.close(() => process.exit(0));
-    };
-
-    process.on('SIGINT', shutdown);
-    process.on('SIGTERM', shutdown);
+    // ...
   } catch (err) {
-    console.error('[BOOT] Failed to start server', err);
+    logger.fatal('[BOOT] Failed to start server', { error: err });
     process.exit(1);
   }
 }

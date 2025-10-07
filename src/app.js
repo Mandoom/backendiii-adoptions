@@ -14,16 +14,28 @@ import errorHandler from './middlewares/errorHandler.js';
 import EErrors from './utils/errors/enum.js';
 import CustomError from './utils/errors/CustomError.js';
 
+// logger
+
+import loggerRouter from './routes/logger.router.js';
+import httpLogger from './middlewares/httpLogger.js';
+
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+
+// 
+app.use(httpLogger);
 
 // Rutas de negocio
 app.use('/api/users', usersRouter);
 app.use('/api/pets', petsRouter);
 app.use('/api/adoptions', adoptionsRouter);
 app.use('/api/sessions', sessionsRouter);
+
+//logger tests
+
+app.use('/', loggerRouter);
 
 // (Opcional) Exponer mocks solo fuera de producción
 if (process.env.NODE_ENV !== 'production') {
