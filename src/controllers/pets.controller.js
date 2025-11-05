@@ -6,6 +6,7 @@ import EErrors from "../utils/errors/enum.js";
 import CustomError from "../utils/errors/CustomError.js";
 import { generatePetValidationCause } from "../utils/errors/info.js";
 import mongoose from "mongoose";
+import { logger } from "../config/logger.js"; // Importamos el logger
 
 // helper local para validar llamadas a BD con datos invalidos return 400 (INVALID_TYPES_ERROR)
 const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
@@ -16,8 +17,10 @@ const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 const getAllPets = async (req, res, next) => {
   try {
     const pets = await petsService.getAll();
+    logger.info(`[getAllPets] Número de mascotas retornadas: ${pets.length}`);
     res.send({ status: "success", payload: pets });
   } catch (error) {
+    logger.error("[getAllPets] Error al obtener mascotas", { error });
     error.code ||= EErrors.DATABASE_ERROR;
     next(error);
   }
@@ -44,8 +47,10 @@ const createPet = async (req, res, next) => {
 
     const pet = PetDTO.getPetInputFrom({ name, specie, birthDate });
     const result = await petsService.create(pet);
+    logger.info(`[createPet] Mascota creada con ID ${result._id}`);
     res.status(201).send({ status: "success", payload: result });
   } catch (error) {
+    logger.error("[createPet] Error al crear mascota", { error });
     error.code ||= EErrors.DATABASE_ERROR;
     next(error);
   }
@@ -95,8 +100,12 @@ const updatePet = async (req, res, next) => {
     }
 
     await petsService.update(petId, petUpdateBody);
+    logger.info(`[updatePet] Mascota ${petId} actualizada`);
     res.send({ status: "success", message: "pet updated" });
   } catch (error) {
+    logger.error(`[updatePet] Error al actualizar la mascota ${req.params.pid}`, {
+      error,
+    });
     error.code ||= EErrors.DATABASE_ERROR;
     next(error);
   }
@@ -133,8 +142,12 @@ const deletePet = async (req, res, next) => {
     }
 
     await petsService.delete(petId);
+    logger.info(`[deletePet] Mascota ${petId} eliminada`);
     res.send({ status: "success", message: "pet deleted" });
   } catch (error) {
+    logger.error(`[deletePet] Error al eliminar mascota ${req.params.pid}`, {
+      error,
+    });
     error.code ||= EErrors.DATABASE_ERROR;
     next(error);
   }
@@ -179,8 +192,12 @@ const createPetWithImage = async (req, res, next) => {
     });
 
     const result = await petsService.create(pet);
+    logger.info(`[createPetWithImage] Mascota creada con ID ${result._id} y imagen ${file.filename}`);
     res.status(201).send({ status: "success", payload: result });
   } catch (error) {
+    logger.error("[createPetWithImage] Error al crear mascota con imagen", {
+      error,
+    });
     error.code ||= EErrors.DATABASE_ERROR;
     next(error);
   }
