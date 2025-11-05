@@ -6,7 +6,6 @@ import petsRouter from './routes/pets.router.js';
 import adoptionsRouter from './routes/adoption.router.js';
 import sessionsRouter from './routes/sessions.router.js';
 
-// import mockingRouter from './routes/mocking.router.js';
 import mocksRouter from './routes/mocks.router.js';
 
 // Error handling centralizado
@@ -37,10 +36,7 @@ app.use('/api/sessions', sessionsRouter);
 
 app.use('/', loggerRouter);
 
-// (Opcional) Exponer mocks solo fuera de producción
-// if (process.env.NODE_ENV !== 'production') {
-//   app.use('/api/mocking', mockingRouter);
-// }
+
 
 // Exponer los mocks solo fuera de producción
 if (process.env.NODE_ENV !== 'production') {
