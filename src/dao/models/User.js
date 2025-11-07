@@ -34,6 +34,18 @@ const schema = new mongoose.Schema({
             }
         ],
         default:[]
+    },
+    // <-- NUEVOS CAMPOS -->
+    documents: {
+        type: [{
+            name: String,      // nombre del documento
+            reference: String  // ruta al archivo subido
+        }],
+        default: []
+    },
+    last_connection: {
+        type: Date,
+        default: null       // se actualizará al hacer login/logout
     }
 })
 
