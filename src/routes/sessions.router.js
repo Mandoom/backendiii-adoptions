@@ -1,9 +1,79 @@
 import { Router } from 'express';
 import sessionsController from '../controllers/sessions.controller.js';
 
+/**
+ * @swagger
+ * tags:
+ *   name: Sessions
+ *   description: Autenticación y gestión de sesiones
+ */
+
+
 const router = Router();
 
+
+/**
+ * @swagger
+ * /api/sessions/register:
+ *   post:
+ *     summary: Registra un nuevo usuario
+ *     tags: [Sessions]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - first_name
+ *               - last_name
+ *               - email
+ *               - password
+ *             properties:
+ *               first_name:
+ *                 type: string
+ *                 example: Ada
+ *               last_name:
+ *                 type: string
+ *                 example: Lovelace
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: ada@example.com
+ *               password:
+ *                 type: string
+ *                 example: swordfish
+ *     responses:
+ *       200:
+ *         description: Usuario registrado correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 payload:
+ *                   type: string
+ *                   description: ID del usuario creado
+ *       400:
+ *         description: Valores incompletos o usuario ya existente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: error
+ *                 error:
+ *                   type: string
+ *                   example: Incomplete values
+ */
 router.post('/register',sessionsController.register);
+
+
 router.post('/login',sessionsController.login);
 router.get('/current',sessionsController.current);
 router.get('/unprotectedLogin',sessionsController.unprotectedLogin);
