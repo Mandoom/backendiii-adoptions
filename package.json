@@ -28,10 +28,10 @@
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
     "@jest/globals": "^30.2.0",
-    "chai": "^4.3.7",
+    "chai": "^4.5.0",
     "cross-env": "^10.1.0",
     "jest": "^30.2.0",
-    "mocha": "^10.1.0",
+    "mocha": "^10.8.2",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.4"
   }
