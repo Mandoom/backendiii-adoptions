@@ -5,13 +5,13 @@ import mongoose from 'mongoose';
 import app from '../src/app.js';
 
 describe('Pruebas del router de sesiones', function () {
-  // Antes de comenzar, conectamos a la base de datos
+  // antes de inicar, abrimos conexion a db
   before(async function () {
     const uri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/adoptme';
     await mongoose.connect(uri);
   });
 
-  // Después de todas las pruebas, cerramos la conexión
+  // cerramos conexion a db despues de la spruebas
   after(async function () {
     await mongoose.connection.close();
   });
@@ -34,7 +34,7 @@ describe('Pruebas del router de sesiones', function () {
 
   describe('POST /api/sessions/login', function () {
     it('debería iniciar sesión con credenciales correctas y establecer cookie', async function () {
-      // Primero registra un usuario para tener credenciales válidas
+      // registrarn usuario para tener credenciales
       const email = `login${Date.now()}@example.com`;
       await request(app)
         .post('/api/sessions/register')
@@ -53,7 +53,7 @@ describe('Pruebas del router de sesiones', function () {
         });
       expect(res.status).to.equal(200);
       expect(res.body.status).to.equal('success');
-      // Verificar que se envía la cookie de sesión
+      // se envia el cookie?
       expect(res.headers['set-cookie']).to.exist;
     });
 
@@ -64,7 +64,7 @@ describe('Pruebas del router de sesiones', function () {
           email: 'inexistente@example.com',
           password: 'wrongpassword'
         });
-      // Según tu implementación, podría ser 400 o 404; ajusta según tus respuestas
+      // podria depender dependiendo de la implementacion??
       expect(res.status).to.be.oneOf([400, 404]);
       expect(res.body.status).to.equal('error');
     });
