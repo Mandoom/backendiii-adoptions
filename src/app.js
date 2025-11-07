@@ -43,12 +43,17 @@ const swaggerOptions = {
     info: {
       title: 'BackendIII Adoptions API',
       version: '1.0.0',
-      description: 'Documentación de la API de sesiones',
+      description: 'Documentación de la API',
     },
   },
-  // El archivo que Swagger deberá analizar para construir la documentación
-  apis: [path.join(path.resolve(), 'src/routes/sessions.router.js')],
+  apis: [
+    path.join(path.resolve(), 'src/routes/sessions.router.js'),
+    path.join(path.resolve(), 'src/routes/users.router.js'),   // <--- añadir
+    // path.join(path.resolve(), 'src/routes/pets.router.js'),
+    // path.join(path.resolve(), 'src/routes/adoption.router.js'),
+  ],
 };
+
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

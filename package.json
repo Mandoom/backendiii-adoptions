@@ -8,7 +8,9 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "cross-env NODE_ENV=test mocha \"test/*.spec.js\" --timeout 10000",
-    "start:prod": "cross-env NODE_ENV=production node src/server.js"
+    "start:prod": "cross-env NODE_ENV=production node src/server.js",
+    "test:functional": "cross-env NODE_ENV=test mocha \"test/*functional*.spec.js\" --timeout 20000",
+    "test:swagger": "cross-env NODE_ENV=test mocha \"test/swagger.*.spec.js\" --timeout 10000"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +34,7 @@
     "cross-env": "^10.1.0",
     "jest": "^30.2.0",
     "mocha": "^10.8.2",
+    "mongodb-memory-server": "^10.3.0",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.4"
   }
