@@ -427,6 +427,45 @@ router.get('/unprotectedLogin',sessionsController.unprotectedLogin);
  *                   description: Documento completo del usuario decodificado del token
  */
 router.get('/unprotectedCurrent',sessionsController.unprotectedCurrent);
+/**
+ * @swagger
+ * /api/sessions/logout:
+ *   get:
+ *     summary: Cierra la sesión del usuario
+ *     description: |
+ *       Limpia la cookie de autenticación (`coderCookie`) y actualiza el campo
+ *       `last_connection` del usuario si la cookie es válida.
+ *     tags: [Sessions]
+ *     responses:
+ *       200:
+ *         description: Sesión cerrada correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: success
+ *                 message:
+ *                   type: string
+ *                   example: Logged out
+ *       500:
+ *         description: Fallo inesperado al cerrar sesión
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: error
+ *                 error:
+ *                   type: string
+ *                   example: Logout failed
+ */
+router.get('/logout', sessionsController.logout);
+
 
 router.get('/logout', sessionsController.logout);  // <-- nuevo endpoint
 
