@@ -494,3 +494,16 @@ Automated tests are not bundled with the repository yet. To experiment locally y
 - Inspect the repository layers (`src/repository`, `src/dao`, `src/services`) to understand how data flows so that you can identify good candidates for unit tests in the future.
 
 With MongoDB running and the server started, you now have a fully functioning local environment to explore and extend the adoption platform.
+
+
+//////////////////////////////////
+
+
+## Docker
+
+Puedes construir y ejecutar este proyecto con Docker.
+
+### Construir la imagen
+
+```bash
+docker build -t <tu-usuario-dockerhub>/backendiii-adoptions .
